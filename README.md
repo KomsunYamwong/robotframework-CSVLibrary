@@ -7,7 +7,7 @@ More information about this library can be found in the [Keyword Documentation](
 ## Installation
 ### Using pip
 ```bash
-      pip install -U robotframework-csvlibrary
+      pip install git+git://github.com/qahive/robotframework-CSVLibrary.git --upgrade
 ```
 
 ### Manual installation
@@ -21,7 +21,31 @@ More information about this library can be found in the [Keyword Documentation](
       python setup.py install
 ```
 
-## Example
+### Example: Save test result to csv file
+If your team prefer to summary test data into csv file. 
+Please follow this example to write test report based on test script name and test status into csv file.
+
+**Example:** 
+```robotframework
+*** Settings ***
+Library                     Collections
+Library                     CSVLibrary
+
+```
+
+**Result CSV data:**
+
+| Testcase Name       | Testcase Status |
+| ------------------- | --------------- |
+| Login with email    | Pass            |
+| Login with username | Fail            |
+
+### Example: Load test data from csv file
+
+
+
+
+### Example
 
 Basic example:
 ```robotframework
