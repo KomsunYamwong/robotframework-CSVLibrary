@@ -157,7 +157,7 @@ class CSVLibrary(object):
             # Do the updating test result
             writer = csv.DictWriter(tempfile, fieldnames)
             for row in rows:
-                if row[header_test_name] == 'Demo update test result':
+                if row[header_test_name] == test_name:
                     row[header_test_result] = test_result
                     print(row[header_test_name], test_result)
             writer.writeheader()
