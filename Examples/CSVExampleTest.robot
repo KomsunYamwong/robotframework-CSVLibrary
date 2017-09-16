@@ -42,7 +42,7 @@ Update csv file test result data
 
 Demo update test result
     LOG    Please see the Teardown
-    [Teardown]    Updated Test Result To Csv File    ${CURDIR}${/}demo-test-report.csv    Demo update test result    ${TEST_STATUS}    # Updated Test Result To Csv File | ${CURDIR}${/}demo-test-report.csv | ${TEST_NAME} | ${TEST_STATUS}
+    [Teardown]    Updated Test Result To Csv File    ${CURDIR}${/}demo-test-report.csv    Demo update test result    ${TEST_STATUS}
 
 Demo read test data from csv
     &{test data} =     Get Test Datas From Csv File    ${CURDIR}${/}demo-test-report.csv    ${TEST_NAME}
