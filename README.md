@@ -8,9 +8,6 @@ More information about this library can be found in the [Keyword Documentation](
 ### Using pip
 ```bash
       pip install git+git://github.com/qahive/robotframework-CSVLibrary.git --upgrade
-      
-      pip install git+git://github.com/qahive/robotframework-CSVLibrary.git@Read_and_Write_test_result_into
-_CSV --upgrade
 ```
 
 ### Manual installation
