@@ -1,6 +1,8 @@
 import csv
 from robot.api import logger
 from version import VERSION
+from tempfile import NamedTemporaryFile
+import shutil
 
 __version__ = VERSION
 
@@ -130,3 +132,36 @@ class CSVLibrary(object):
             fieldnames=fieldnames,
             **kwargs
         )
+
+    def updated_test_result_to_csv_file(self, filename, test_name, test_result, header_test_name='test_name', header_test_result='test_result'):
+        """This keyword will update test result to csv file.
+        Please set the header field with test_name and test_result tobe able to update with this keyword
+
+        - ``filename``: name of csv file
+        - ``test_result``: test result is 'Pass' or 'Fail'
+        - ``header_test_name``: (Optional) specific csv header test name. default: 'test_name'
+        - ``header_test_result``: (Optional) specific csv header test result. default: 'test_result'
+
+        Example:
+            | Updated Test Result To Csv File |	demo-test-report.csv | Demo update test result | Pass |
+        """
+        fieldnames = []
+        rows = []
+        # Read csv file for updated
+        with open(filename, 'rb') as csvfile:
+            reader = csv.DictReader(csvfile)
+            fieldnames = reader.fieldnames
+            rows = [l for l in reader]
+
+        # Do the updating test result
+        with open(filename, 'wb') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames)
+            for row in rows:
+                if row[header_test_name] == test_name:
+                    row[header_test_result] = test_result
+                    print(row[header_test_name], test_result)
+            writer.writeheader()
+            writer.writerows(rows)
+
+
+
