@@ -41,7 +41,7 @@ Update csv file test result data
     Update test template result by index    ${CURDIR}${/}test-data-template.csv    2    Pass
 
 Demo update test result
-    Updated Test Result To Csv File    ${CURDIR}${/}demo-test-report.csv    Demo update test result    Pass
+    Updated Test Result To Csv File    ${CURDIR}${/}demo-test-report.csv    ${TEST_NAME}    Pass
 
 *** Keywords ***
 Update test template result by index
