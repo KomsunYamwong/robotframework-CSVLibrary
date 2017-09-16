@@ -41,7 +41,12 @@ Update csv file test result data
     Update test template result by index    ${CURDIR}${/}test-data-template.csv    2    Pass
 
 Demo update test result
-    Updated Test Result To Csv File    ${CURDIR}${/}demo-test-report.csv    ${TEST_NAME}    Pass
+    LOG    Please see the Teardown
+    [Teardown]    Updated Test Result To Csv File    ${CURDIR}${/}demo-test-report.csv    Demo update test result    ${TEST_STATUS}    # Updated Test Result To Csv File | ${CURDIR}${/}demo-test-report.csv | ${TEST_NAME} | ${TEST_STATUS}
+
+Demo read test data from csv
+    &{test data} =     Get Test Datas From Csv File    ${CURDIR}${/}demo-test-report.csv    ${TEST_NAME}
+    LOG    Hello ${test data.first_name} \ ${test data.last_name}
 
 *** Keywords ***
 Update test template result by index

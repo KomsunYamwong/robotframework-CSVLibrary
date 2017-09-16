@@ -1,3 +1,4 @@
+# encoding=utf8
 import csv
 from robot.api import logger
 from version import VERSION
@@ -145,8 +146,6 @@ class CSVLibrary(object):
         Example:
             | Updated Test Result To Csv File |	demo-test-report.csv | Demo update test result | Pass |
         """
-        fieldnames = []
-        rows = []
         tempfile = NamedTemporaryFile(delete=False)
 
         with open(filename, 'rb') as csvfile, tempfile:
@@ -158,9 +157,33 @@ class CSVLibrary(object):
             # Do the updating test result
             writer = csv.DictWriter(tempfile, fieldnames)
             for row in rows:
-                if row[header_test_name] == test_name:
+                if row[header_test_name] == 'Demo update test result':
                     row[header_test_result] = test_result
                     print(row[header_test_name], test_result)
             writer.writeheader()
             writer.writerows(rows)
         shutil.move(tempfile.name, filename)
+
+    def get_test_datas_from_csv_file(self, filename, test_name, header_test_name='test_name'):
+        """This keyword will get test data from csv file.
+        Please set the header field with test_name tobe able to get correct data with this keyword
+
+        - ``filename``: name of csv file
+        - ``test_name``: test script name
+        - ``header_test_name``: (Optional) specific csv header test name. default: 'test_name'
+
+        Return: row dictionary test data.
+
+        Example:
+            | &{test_data}= | Get test datas from csv file | demo-test-report.csv | Demo update test result |
+        """
+        with open(filename, 'rb') as csvfile:
+            # Read csv file for updated
+            reader = csv.DictReader(csvfile)
+            fieldnames = reader.fieldnames
+            rows = [l for l in reader]
+            for row in rows:
+                if row[header_test_name] == test_name:
+                    return row
+        return {}
+
