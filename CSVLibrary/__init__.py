@@ -147,21 +147,20 @@ class CSVLibrary(object):
         """
         fieldnames = []
         rows = []
-        # Read csv file for updated
-        with open(filename, 'rb') as csvfile:
+        tempfile = NamedTemporaryFile(delete=False)
+
+        with open(filename, 'rb') as csvfile, tempfile:
+            # Read csv file for updated
             reader = csv.DictReader(csvfile)
             fieldnames = reader.fieldnames
             rows = [l for l in reader]
 
-        # Do the updating test result
-        with open(filename, 'wb') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames)
+            # Do the updating test result
+            writer = csv.DictWriter(tempfile, fieldnames)
             for row in rows:
                 if row[header_test_name] == test_name:
                     row[header_test_result] = test_result
                     print(row[header_test_name], test_result)
             writer.writeheader()
             writer.writerows(rows)
-
-
-
+        shutil.move(tempfile.name, filename)
